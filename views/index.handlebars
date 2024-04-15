@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Fetch</title>
+     <style>
+        .center-word {
+            padding-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 1vh;
+    }
+    body{
+        background-color:#191d28 ;
+    }
+    h1{
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        font-weight: bold;
+    }
+   
+    
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background: #191d28;">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-start">
+        <a class="navbar-brand" href="#" style="color: #74dcdc;">HODLINFO</a>
+      </div>
+      <!-- Add elements for price and time -->
+      <div class="d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: #74dcdc;">
+              BTC
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">ETH</a></li>
+              <li><a class="dropdown-item" href="#">DOGE</a></li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: #74dcdc;">
+              INR
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Yeh</a></li>
+              <li><a class="dropdown-item" href="#">Woh</a></li>
+            </ul>
+        </div>
+        <button class="btn" type="submit" style="color: #74dcdc;">BUY BTC</button>
+    </div>
+      
+      <div class="d-flex justify-content-end">HI</div>
+    </div>
+  </nav>
+
+    <h1>Top 10 Cryptocurrencies on WAZIRX </h1>
+    <p>{{foo}}</p>
+    <table id="crypto-table" class="table bg-dark table-striped p-4 border-2 border-black m-10 table-responsive mx-auto p-5 rounded" style="width: 800px; ">
+        <thead >
+            <tr>
+                <th scope="col ">Name</th>
+                <th scope="col">Last Price</th>
+                <th scope="col">Buy Price</th>
+                <th scope="col">Sell Price</th>
+                <th scope="col">Volume</th>
+                <th scope="col">Base Unit</th>
+            </tr>
+        </thead>
+        <tbody class="rounded " style="background-color: #191d28;">
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch data from the backend API
+        fetch('/api')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('crypto-table').getElementsByTagName('tbody')[0];
+                Object.keys(data).splice(0,10).forEach(item => {
+                    const row = tableBody.insertRow();
+                    row.insertCell().textContent = data[item].name;
+                    row.insertCell().textContent = data[item].last;
+                    row.insertCell().textContent = data[item].buy;
+                    row.insertCell().textContent = data[item].sell;
+                    row.insertCell().textContent = data[item].volume;
+                    row.insertCell().textContent = data[item].base_unit;
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
